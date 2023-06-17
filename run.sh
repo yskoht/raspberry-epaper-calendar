@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # dir
-t=tmp
-pic=/pic
-calendar=${pic}/calendar
+root=/pic
+t=${root}/tmp
+calendar=${root}/calendar
 
 # font
 font=DejaVu-Sans-Mono
@@ -17,7 +17,7 @@ device=epd4in01f
 epaper=/home/pi/.local/bin/epaper
 
 mkdir -p $t ${calendar}
-/usr/bin/python cal.py
+/usr/bin/python ${root}/cal.py
 
 convert -background none -fill '#000000' -font ${font} -pointsize ${fontsize} label:"@$t/base.txt"  $t/_base.png
 convert -background none -fill '#00FF00' -font ${font} -pointsize ${fontsize} label:"@$t/today.txt" $t/_today.png
@@ -43,7 +43,7 @@ composite \
   $t/_img.png
 
 convert $t/_img.png -gravity center -background white -extent ${size} $t/img.png
-convert $t/img.png +dither -map palette.png ${calendar}/img.png
+convert $t/img.png +dither -map ${root}/palette.png ${calendar}/img.png
 
-${epaper} print --verbose -d ${device} ${calendar}
+/home/pi/.local/bin/epaper print --verbose -d epd4in01f ${calendar}
 rm -rf $t
