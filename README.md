@@ -16,8 +16,14 @@ apt install imagemagick
 git clone https://github.com/yskoht/raspberry-epaper-calendar.git /pic
 ```
 
+```sh
+crontab -l
+1 0 * * * /bin/sh /pic/run.sh >>error.log 2>&1
+```
+
 ### Run
 
 ```sh
 sh /pic/run.sh
 ```
+
