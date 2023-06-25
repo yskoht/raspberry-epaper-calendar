@@ -16,7 +16,7 @@ def conv(text):
 
 
 def cut_out(text, regex):
-    r = re.search(regex, text)
+    r = re.search(regex, text, flags=re.MULTILINE)
 
     start = r.start()
     end = r.end()
@@ -39,7 +39,7 @@ write(f'{tmp}/base.txt', base)
 # today
 d = today.day
 dd = str(d).rjust(2, " ")
-regex = f'{dd} |{dd}\n|{dd}$'
+regex = f'^{dd} | {dd} | {dd}$'
 [today, today_r] = cut_out(base, regex)
 write(f'{tmp}/today.txt', today)
 
